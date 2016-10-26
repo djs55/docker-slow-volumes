@@ -4,7 +4,7 @@
 - MacOS Sierra 10.12
 - Docker for Mac 1.12.2-beta28(12906)
 
-slow disk was also present on stable channel, I installed beta to attempt suggested fixes in bug report.
+slow disk was also present on stable channel, I installed beta to attempt suggested fixes in bug report, which had no effect.
 
 
 ## Build Image
@@ -36,51 +36,41 @@ make docker-run
 lein deps
 
 
-
 # build uberjar 
 
 time lein uberjar
-Warning: specified :main without including it in :aot.
-Implicit AOT of :main will be removed in Leiningen 3.0.0.
-If you only need AOT for your uberjar, consider adding :aot :all into your
-:uberjar profile instead.
 Compiling helloapp
 Created /work/target/helloapp-0.1.0-SNAPSHOT.jar
 Created /work/target/helloapp-0.1.0-SNAPSHOT-standalone.jar
-lein uberjar  7.73s user 9.94s system 12% cpu 2:26.34 total
+lein uberjar  19.17s user 17.99s system 7% cpu 8:09.32 total
 
 ```
 
 
 
 
-## Same scenario on native host
+## Same scenario on host outside of docker
 ```bash
 
 time lein uberjar
-
 Compiling helloapp
 Created /Users/mike/work/docker/docker-slow-volumes/helloapp/target/helloapp-0.1.0-SNAPSHOT.jar
 Created /Users/mike/work/docker/docker-slow-volumes/helloapp/target/helloapp-0.1.0-SNAPSHOT-standalone.jar
 
-real	0m6.393s
-user	0m7.532s
-sys	0m1.376s
+real	0m12.258s
+user	0m11.652s
+sys	0m3.401s
 
 ```
 
 
-## Analysis
+## Additional Info
 
-A build of an uberjar on the host for a simple hello world build takes ~7.5 seconds. 
+com.docker.hyperkit is running at ~124% CPU usage during the entire 8.5 minutes. 
 
-Uberjar builds inside the docker container take ~2.5 minutes to build. 
+The SSD drive is a brand new Samsung 850 pro 512.
 
-Builds inside a container are ~20 times slower, and the CPU is pegged at 100% the entire time.
-
-When building normal applications that include dependancies, specifically in my case the AWS lambda toolkit, are included I am seeing build times of ~8.5 minutes at 100% CPU usage during the entire build.
-
-
+The computer is an older macbook pro
 
 
 
