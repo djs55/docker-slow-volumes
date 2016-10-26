@@ -74,4 +74,47 @@ The computer is an older macbook pro
 
 
 
+# Tested again after updates
+- MacOS 10.12.1
+- Docker for Mac 1.12.3-rc1-beta29 (13397)
+
+```bash
+
+# uberjar in docker container
+time lein uberjar
+
+Compiling helloapp
+Created /work/target/helloapp-0.1.0-SNAPSHOT.jar
+Created /work/target/helloapp-0.1.0-SNAPSHOT-standalone.jar
+lein uberjar  20.92s user 15.10s system 7% cpu 8:07.18 total
+
+
+
+# uberjar on host
+time lein uberjar
+
+Compiling helloapp
+Created /Users/mike/work/docker/docker-slow-volumes/helloapp/target/helloapp-0.1.0-SNAPSHOT.jar
+Created /Users/mike/work/docker/docker-slow-volumes/helloapp/target/helloapp-0.1.0-SNAPSHOT-standalone.jar
+
+real	0m12.756s
+user	0m11.319s
+sys	0m3.433s
+
+
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
 
